@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-// Click on a title to display the content under it.Click again to close the hide the content.
-// Click on a title does not affect the contents under other titles.
+// Click on a title to display all the content under all titles. Click again to hide all contents.
 
 const faqs = [
   {
@@ -27,25 +26,24 @@ function App() {
 }
 
 function Accordion({ data }) {
-  return (
-    <>
-      {data.map((faq) => (
-        <AccordionItem faq={faq} />
-      ))}
-    </>
-  );
-}
-
-function AccordionItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick() {
     setIsOpen(() => !isOpen);
   }
-
   return (
     <>
-      <h2 onClick={handleClick}>{faq.title}</h2>
+      {data.map((faq) => (
+        <AccordionItem faq={faq} isOpen={isOpen} onClick={handleClick} />
+      ))}
+    </>
+  );
+}
+
+function AccordionItem({ faq, isOpen, onClick }) {
+  return (
+    <>
+      <h2 onClick={onClick}>{faq.title}</h2>
       {isOpen && <p>{faq.text}</p>}
     </>
   );
